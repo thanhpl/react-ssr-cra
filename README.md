@@ -6,6 +6,8 @@ Reference from [Upgrading a create-react-app project to a SSR + code splitting s
 
 In the project directory, you can run:
 
-* `yarn install`
-* `yarn run dev`
-* `yarn run server`
+```
+yarn install
+yarn run build
+yarn run server
+```
