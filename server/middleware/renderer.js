@@ -1,6 +1,8 @@
 import React from 'react'
 import ReactDOMServer from 'react-dom/server'
 import { StaticRouter } from 'react-router';
+import { Helmet } from 'react-helmet';
+import Loadable from 'react-loadable';
 
 // import our main App component
 import App from '../../src/App';
@@ -42,12 +44,18 @@ export default (req, res, next) => {
         const extraChunks = extractAssets(manifest, modules)
             .map(c => `<script type="text/javascript" src="/${c}"></script>`);
 
+        // get HTML headers
+        const helmet = Helmet.renderStatic();
+
         // inject the rendered app into our html and send it
         return res.send(
             htmlData.replace(
                 '<div id="root"></div>',
-                `<div id="root">${html}</div>`
-            ).replace('</body>', extraChunks.join('') + '</body>')
+                `<div id="root">${html}</div>`)
+                // append the extra js assets
+                .replace('</body>', extraChunks.join('') + '</body>')
+                // write the HTML header tags
+                .replace('<title></title>', helmet.title.toString() + helmet.meta.toString())
         );
     });
 }
