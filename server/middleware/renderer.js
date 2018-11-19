@@ -1,5 +1,6 @@
 import React from 'react'
 import ReactDOMServer from 'react-dom/server'
+import { StaticRouter } from 'react-router';
 
 // import our main App component
 import App from '../../src/App';
@@ -25,10 +26,15 @@ export default (req, res, next) => {
             return res.status(404).end()
         }
 
+        const modules = [];
+        const routerContext = {};
+
         // render the app as a string
         const html = ReactDOMServer.renderToString(
             <Loadable.Capture report={m => modules.push(m)}>
-                <App />
+                <StaticRouter location={req.baseUrl} context={routerContext}>
+                    <App />
+                </StaticRouter>
             </Loadable.Capture>
         );
 

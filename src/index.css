@@ -12,3 +12,19 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+nav a {
+  margin-bottom: 30px;
+}
+ nav a {
+  display: inline-block;
+}
+ nav a.active {
+  color: #222222;
+  text-decoration: none;
+}
+ nav a + a {
+  margin-left: 10px;
+  padding-left: 10px;
+  border-left: 1px solid #222;
+}
